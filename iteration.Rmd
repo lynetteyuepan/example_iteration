@@ -78,9 +78,37 @@ z_score = function(x) {
 
 z_score(x)
 ```
+## starting code
+```{r}
+sim_data = tibble(
+  x = runif(30),
+  y = 2 + 3 * x + rnorm(30, 0, 1)
+)
+
+ls_fit = lm(y ~ x, data = sim_data)
+  
+beta0_hat = coef(ls_fit)[1]
+beta1_hat = coef(ls_fit)[2]
+
+```
+
+## write function
 
 ```{r}
-
+sim_regression = function(n, beta0, beta1) {
+  
+  sim_data = tibble(
+    x = runif(n),
+    y = beta0 + beta1 * x + rnorm(n, 0, 1)
+  )
+  
+  ls_fit = lm(y ~ x, data = sim_data)
+  
+  tibble(
+    beta0_hat = coef(ls_fit)[1],
+    beta1_hat = coef(ls_fit)[2]
+  )
+}
 ```
 
 
