@@ -11,8 +11,8 @@ theme_set(theme_bw())
 theme_update(legend.position = "bottom")
 
 set.seed(1)
-
-
+library(readxl)
+library(janitor)
 ```
 
 ##  Compute the Z score:
@@ -112,4 +112,22 @@ sim_regression = function(n, beta0, beta1) {
 ```
 
 
+##
+```{r}
+## Try to write a function that can be used to abstract the data loading and cleaning process. Use this function to recreate the tidied LoTR dataset.
+
+load_LoTR_data = function(path, cell_range, movie_name){
+  data = read_excel(path, range = cell_range) %>% 
+         clean_names() %>% 
+         gather(key = sex, value = words, female:male) %>%
+         mutate(race = tolower(race),
+                movie = movie_name)
+  data
+}
+
+load_LoTR_data(path = "../9/20_Data_import/data/LotR_Words.xlsx", cell_range = "B3:D6", movie_name = "Fellowship")
+
+load_LoTR_data(path = "../9/20_Data_import/data/LotR_Words.xlsx", cell_range = "F3:H6", movie_name = "Two Towers")
+
+```
 
