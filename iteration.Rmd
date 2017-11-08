@@ -1,0 +1,87 @@
+---
+title: "example_iteration"
+author: "Lynette Pan"
+date: "November 8, 2017"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+theme_set(theme_bw())
+theme_update(legend.position = "bottom")
+
+set.seed(1)
+
+
+```
+
+##  Compute the Z score:
+
+```{r}
+x = rnorm(25)
+
+mean(x) / sd(x)
+
+
+z_score = function(x) {
+  
+  z = mean(x) / sd(x)
+  z
+  
+}
+
+z_score(x)
+z_score(rnorm(1000))
+
+# add control statement
+
+z_score = function(x) {
+  
+  if (!is.numeric(x)) {
+    stop("Argument x should be numeric")
+  } else if (length(x) < 3) {
+    stop("Z scores cannot be computed for length 3 vectors")
+  }
+  
+  z = mean(x) / sd(x)
+  
+  z
+}
+# stop controls for the error statement
+
+
+z_score(c(10, 2))
+
+```
+
+
+
+
+
+```{r}
+z_score = function(x) {
+  
+  if (!is.numeric(x)) {
+    stop("argument x should be numeric")
+  } else if (length(x) < 3) {
+    stop("z-scores cannot be computed for length 3 vectors")
+  }
+  
+  mean_x = mean(x)
+  sd_x = sd(x)
+  z = mean_x / sd_x
+  
+  tibble(mean = mean_x, 
+       sd = sd_x,
+       z = z)
+}
+
+z_score(x)
+```
+
+```{r}
+
+```
+
+
+
